@@ -23,8 +23,6 @@ $proc->setParameter('', 'modified', "Modifying");
 
 // The result
 echo $proc->transformToXML($xml);
-//echo "Testing";
-//echo $_POST["url"];
 source_collecting($_POST["url"]);
 
 /*************
@@ -41,7 +39,7 @@ function source_collecting($url){
 	// check the URL in "pickup_list.txt"
 	// Mark up chceck : Before collecting the source, you should check up the url if it is already collected.	
 	$mark_up = ""; 								// for each URL marked in "pickup_list.txt".
-	$mark_ups = file_get_contents("../html2_p/pickup_list.txt");
+	$mark_ups = file_get_contents("../s_collecting_p/pickup_list.txt");
 	$count = 0; 								// for file length.
 	$delimiter = ""; 							// for checking if the character is ","
 	while ($count != strlen($mark_ups)) {
@@ -66,14 +64,14 @@ function source_collecting($url){
 	
 	if($source){
 		//mark up the URL into the "pickup_list.txt" file adding it.
-		$pick_up = fopen("../html2_p/pickup_list.txt", "a");
+		$pick_up = fopen("../s_collecting_p/pickup_list.txt", "a");
 		fputs($pick_up, $url.",");
 		fclose($pick_up);
 		echo "A new URL marked into pickup_list.txt : ".$url." ; ";
 
 		// Collect the contents in a new file.
 		$time = time();
-		file_put_contents("../html2_p/guten/web".$time.".txt", $source);
+		file_put_contents("../s_collecting_p/guten/web".$time.".txt", $source);
 		echo $url." : is collected";
 	}
 }	
